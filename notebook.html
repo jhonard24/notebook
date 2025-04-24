@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School Classroom Feedback Survey</title>
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Patrick Hand', cursive;
+      background-color: #a3c9f1;
+      background-image:
+        repeating-linear-gradient(
+          to bottom,
+          #ffffff 0px,
+          #ffffff 23px,
+          #d0e6ff 24px
+        );
+      color: #2e3b4e;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 60px auto;
+      padding: 30px 60px 30px 120px;
+      background-color: rgba(255, 255, 255, 0.95);
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      position: relative;
+      border-radius: 20px;
+    }
+
+    .bookmark {
+      width: 100px;
+      height: 100px;
+      background-color: #ff3b3b;
+      color: white;
+      position: absolute;
+      top: -20px;
+      left: 70px;
+      clip-path: polygon(0 0, 100% 0, 100% 75%, 50% 100%, 0 75%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: bold;
+      z-index: 10;
+    }
+
+    .holes {
+      position: absolute;
+      left: 15px; /* Adjusted this value */
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      height: calc(100% - 30px); /* Ensure space between bullets */
+      z-index: 1;
+    }
+
+    .holes span {
+      width: 18px;
+      height: 18px;
+      background-color: black;
+      border-radius: 50%;
+      display: block;
+    }
+
+    .margin-line {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50px;
+      width: 3px;
+      background-color: #ff3b3b;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    hr.dotted {
+      border-top: 7px dotted red;
+      margin: 10px auto 30px;
+      width: 90%;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    input[type="text"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-bottom: 2px solid #2e3b4e;
+      background: transparent;
+      font-size: 16px;
+      font-family: 'Courier New', Courier, monospace;
+      outline: none;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 100px;
+    }
+
+    button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 12px;
+      background-color: #f1e05a;
+      color: #2e3b4e;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .stars {
+      display: flex;
+      gap: 5px;
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+
+    .stars input[type="radio"] {
+      display: none;
+    }
+
+    .stars label {
+      font-size: 30px;
+      color: #999;
+      cursor: pointer;
+    }
+
+    .stars input[type="radio"]:checked ~ label,
+    .stars label:hover,
+    .stars label:hover ~ label {
+      color: #f1e05a;
+    }
+
+    .filter-controls {
+      margin-top: 30px;
+    }
+
+    table {
+      border-radius: 10px;
+      overflow: hidden;
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+      background-color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      border: 1px solid #ccc;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 12px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+
+    tr:hover {
+      background-color: #e1e1e1;
+    }
+
+    .confirmation {
+      text-align: center;
+      color: green;
+      font-size: 18px;
+      margin-top: 20px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="bookmark">Survey</div>
+    <div class="holes">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="margin-line"></div>
+
+    <h1>School Classroom Feedback Survey</h1>
+    <hr class="dotted">
+    <form id="survey-form">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name">
+
+      <label for="grade">Grade & Section:</label>
+      <select id="grade" name="grade">
+        <option value="7-A">Grade 7-A</option>
+        <option value="8-B">Grade 8-B</option>
+      </select>
+
+      <label for="subject">Subject:</label>
+      <select id="subject" name="subject">
+        <option value="Math">Math</option>
+        <option value="Science">Science</option>
+        <option value="English">English</option>
+      </select>
+
+      <label>Teacher Rating:</label>
+      <div class="stars">
+        <input type="radio" id="star5" name="rating" value="5"><label for="star5">&#9733;</label>
+        <input type="radio" id="star4" name="rating" value="4"><label for="star4">&#9733;</label>
+        <input type="radio" id="star3" name="rating" value="3"><label for="star3">&#9733;</label>
+        <input type="radio" id="star2" name="rating" value="2"><label for="star2">&#9733;</label>
+        <input type="radio" id="star1" name="rating" value="1"><label for="star1">&#9733;</label>
+      </div>
+
+      <label for="lesson">Favorite Lesson:</label>
+      <input type="text" id="lesson" name="lesson">
+
+      <label for="suggestions">Suggestions for Improvement:</label>
+      <textarea id="suggestions" name="suggestions" rows="4"></textarea>
+
+      <label><input type="checkbox" name="anonymous" id="anonymous"> Submit Anonymously</label>
+
+      <button type="submit">Submit Feedback</button>
+    </form>
+
+    <div class="confirmation" id="confirmation">Thank you for your feedback!</div>
+
+    <div class="filter-controls">
+      <h2>Filter Feedback</h2>
+      <select id="filter-subject">
+        <option value="">All Subjects</option>
+        <option value="Math">Math</option>
+        <option value="Science">Science</option>
+        <option value="English">English</option>
+      </select>
+      <select id="filter-rating">
+        <option value="">All Ratings</option>
+        <option value="5">5 Stars</option>
+        <option value="4">4 Stars</option>
+        <option value="3">3 Stars</option>
+        <option value="2">2 Stars</option>
+        <option value="1">1 Star</option>
+      </select>
+    </div>
+
+    <table id="feedback-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Grade</th>
+          <th>Subject</th>
+          <th>Rating</th>
+          <th>Favorite Lesson</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    const form = document.getElementById('survey-form');
+    const tableBody = document.querySelector('#feedback-table tbody');
+    const filterSubject = document.getElementById('filter-subject');
+    const filterRating = document.getElementById('filter-rating');
+    const confirmation = document.getElementById('confirmation');
+    let feedbackData = JSON.parse(localStorage.getItem('feedbackData')) || [];
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById('anonymous').checked ? 'Anonymous 🕵️' : document.getElementById('name').value.trim();
+      const grade = document.getElementById('grade').value;
+      const subject = document.getElementById('subject').value;
+      const rating = document.querySelector('input[name="rating"]:checked')?.value || '';
+      const lesson = document.getElementById('lesson').value.trim();
+
+      if (!name && !document.getElementById('anonymous').checked) return alert('Please enter your name or select anonymous.');
+      if (!rating) return alert('Please select a rating.');
+
+      const newEntry = { name, grade, subject, rating, lesson };
+      feedbackData.push(newEntry);
+      localStorage.setItem('feedbackData', JSON.stringify(feedbackData));
+
+      renderTable();
+      form.reset();
+
+      confirmation.style.display = 'block';
+      setTimeout(() => confirmation.style.display = 'none', 3000);
+    });
+
+    function renderTable() {
+      const subjectFilter = filterSubject.value;
+      const ratingFilter = filterRating.value;
+      tableBody.innerHTML = '';
+
+      feedbackData.filter(entry => {
+        return (!subjectFilter || entry.subject === subjectFilter) &&
+               (!ratingFilter || entry.rating === ratingFilter);
+      }).forEach(entry => {
+        const row = `<tr>
+          <td>${entry.name}</td>
+          <td>${entry.grade}</td>
+          <td>${entry.subject}</td>
+          <td>${entry.rating}</td>
+          <td>${entry.lesson}</td>
+        </tr>`;
+        tableBody.insertAdjacentHTML('beforeend', row);
+      });
+    }
+
+    filterSubject.addEventListener('change', renderTable);
+    filterRating.addEventListener('change', renderTable);
+    window.addEventListener('load', renderTable);
+  </script>
+</body>
+</html>
