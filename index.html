@@ -6,32 +6,23 @@
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
     body {
-      margin: 0;
-      padding: 0;
       font-family: 'Patrick Hand', cursive;
-    }
-
-    .frame {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-      box-sizing: border-box;
-      border: 30px solid #fff;
       background-color: #a3c9f1;
       background-image:
         repeating-linear-gradient(
           to bottom,
           #ffffff 0px,
-          #ffffff  22px,
-          #536878  24px
+          #ffffff 23px,
+          #555555  24px
         );
+      color: #2e3b4e;
+      margin: 0;
+      padding: 0;
     }
 
     .container {
       max-width: 800px;
-      width: 100%;
+      margin: 60px auto;
       padding: 30px 60px 30px 120px;
       background-color: rgba(255, 255, 255, 0.95);
       border: 1px solid #ccc;
@@ -201,90 +192,150 @@
       margin-top: 20px;
       display: none;
     }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px 30px 20px 50px;
+        margin: 30px 10px;
+      }
+
+      .bookmark {
+        left: 20px;
+        width: 80px;
+        height: 80px;
+        font-size: 16px;
+      }
+
+      .holes {
+        left: 5px;
+      }
+
+      .margin-line {
+        left: 35px;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      label {
+        font-size: 18px;
+      }
+
+      input[type="text"],
+      select,
+      textarea {
+        font-size: 15px;
+      }
+
+      button {
+        font-size: 16px;
+        padding: 10px;
+      }
+
+      .stars label {
+        font-size: 24px;
+      }
+
+      .filter-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      table th,
+      table td {
+        font-size: 14px;
+        padding: 8px;
+      }
+
+      .confirmation {
+        font-size: 16px;
+      }
+    }
   </style>
 </head>
 <body>
-  <div class="frame">
-    <div class="container">
-      <div class="bookmark">Survey</div>
-      <div class="holes">
-        <span></span><span></span><span></span><span></span><span></span>
-        <span></span><span></span><span></span><span></span><span></span>
-      </div>
-      <div class="margin-line"></div>
 
-      <h1>School Classroom Feedback Survey</h1>
-      <hr class="dotted">
-      <form id="survey-form">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name">
-
-        <label for="grade">Grade & Section:</label>
-        <select id="grade" name="grade">
-          <option value="7-A">Grade 7-A</option>
-          <option value="8-B">Grade 8-B</option>
-        </select>
-
-        <label for="subject">Subject:</label>
-        <select id="subject" name="subject">
-          <option value="Math">Math</option>
-          <option value="Science">Science</option>
-          <option value="English">English</option>
-        </select>
-
-        <label>Teacher Rating:</label>
-        <div class="stars">
-          <input type="radio" id="star5" name="rating" value="5"><label for="star5">&#9733;</label>
-          <input type="radio" id="star4" name="rating" value="4"><label for="star4">&#9733;</label>
-          <input type="radio" id="star3" name="rating" value="3"><label for="star3">&#9733;</label>
-          <input type="radio" id="star2" name="rating" value="2"><label for="star2">&#9733;</label>
-          <input type="radio" id="star1" name="rating" value="1"><label for="star1">&#9733;</label>
-        </div>
-
-        <label for="lesson">Favorite Lesson:</label>
-        <input type="text" id="lesson" name="lesson">
-
-        <label for="suggestions">Suggestions for Improvement:</label>
-        <textarea id="suggestions" name="suggestions" rows="4"></textarea>
-
-        <label><input type="checkbox" name="anonymous" id="anonymous"> Submit Anonymously</label>
-
-        <button type="submit">Submit Feedback</button>
-      </form>
-
-      <div class="confirmation" id="confirmation">Thank you for your feedback!</div>
-
-      <div class="filter-controls">
-        <h2>Filter Feedback</h2>
-        <select id="filter-subject">
-          <option value="">All Subjects</option>
-          <option value="Math">Math</option>
-          <option value="Science">Science</option>
-          <option value="English">English</option>
-        </select>
-        <select id="filter-rating">
-          <option value="">All Ratings</option>
-          <option value="5">5 Stars</option>
-          <option value="4">4 Stars</option>
-          <option value="3">3 Stars</option>
-          <option value="2">2 Stars</option>
-          <option value="1">1 Star</option>
-        </select>
-      </div>
-
-      <table id="feedback-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Grade</th>
-            <th>Subject</th>
-            <th>Rating</th>
-            <th>Favorite Lesson</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+  <div class="container">
+    <div class="bookmark">Survey</div>
+    <div class="holes">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
     </div>
+    <div class="margin-line"></div>
+
+    <h1>School Classroom Feedback Survey</h1>
+    <hr class="dotted">
+    <form id="survey-form">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name">
+
+      <label for="grade">Grade & Section:</label>
+      <select id="grade" name="grade">
+        <option value="7-A">Grade 7-A</option>
+        <option value="8-B">Grade 8-B</option>
+      </select>
+
+      <label for="subject">Subject:</label>
+      <select id="subject" name="subject">
+        <option value="Math">Math</option>
+        <option value="Science">Science</option>
+        <option value="English">English</option>
+      </select>
+
+      <label>Teacher Rating:</label>
+      <div class="stars">
+        <input type="radio" id="star5" name="rating" value="5"><label for="star5">&#9733;</label>
+        <input type="radio" id="star4" name="rating" value="4"><label for="star4">&#9733;</label>
+        <input type="radio" id="star3" name="rating" value="3"><label for="star3">&#9733;</label>
+        <input type="radio" id="star2" name="rating" value="2"><label for="star2">&#9733;</label>
+        <input type="radio" id="star1" name="rating" value="1"><label for="star1">&#9733;</label>
+      </div>
+
+      <label for="lesson">Favorite Lesson:</label>
+      <input type="text" id="lesson" name="lesson">
+
+      <label for="suggestions">Suggestions for Improvement:</label>
+      <textarea id="suggestions" name="suggestions" rows="4"></textarea>
+
+      <label><input type="checkbox" name="anonymous" id="anonymous"> Submit Anonymously</label>
+
+      <button type="submit">Submit Feedback</button>
+    </form>
+
+    <div class="confirmation" id="confirmation">Thank you for your feedback!</div>
+
+    <div class="filter-controls">
+      <h2>Filter Feedback</h2>
+      <select id="filter-subject">
+        <option value="">All Subjects</option>
+        <option value="Math">Math</option>
+        <option value="Science">Science</option>
+        <option value="English">English</option>
+      </select>
+      <select id="filter-rating">
+        <option value="">All Ratings</option>
+        <option value="5">5 Stars</option>
+        <option value="4">4 Stars</option>
+        <option value="3">3 Stars</option>
+        <option value="2">2 Stars</option>
+        <option value="1">1 Star</option>
+      </select>
+    </div>
+
+    <table id="feedback-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Grade</th>
+          <th>Subject</th>
+          <th>Rating</th>
+          <th>Favorite Lesson</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
   </div>
 
   <script>
