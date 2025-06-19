@@ -15,6 +15,12 @@
             --black: #2c3e50;
             --light-gray: #f8f9fa;
             --section-padding: 4rem 0;
+            
+            /* Dark mode variables */
+            --bg-dark: #121212;
+            --card-dark: #1e1e1e;
+            --text-dark: #e0e0e0;
+            --header-dark: #1a1a1a;
         }
         
         * {
@@ -32,6 +38,12 @@
             color: var(--black);
             background-color: var(--light-gray);
             line-height: 1.6;
+            transition: all 0.4s ease;
+        }
+        
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
         }
         
         /* Header Styles */
@@ -44,6 +56,11 @@
             top: 0;
             z-index: 1000;
             transition: all 0.3s ease;
+        }
+        
+        .dark-mode header {
+            background: var(--header-dark);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
         
         header.scrolled {
@@ -91,6 +108,7 @@
             display: flex;
             list-style: none;
             gap: 1.2rem;
+            align-items: center;
         }
         
         nav a {
@@ -118,6 +136,26 @@
             width: 100%;
         }
         
+        /* Theme Toggle */
+        .theme-toggle {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--white);
+        }
+        
+        .theme-toggle:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(30deg);
+        }
+        
         /* Section Divider */
         .section-divider {
             height: 1px;
@@ -126,41 +164,55 @@
             max-width: 1200px;
         }
         
+        .dark-mode .section-divider {
+            background: linear-gradient(to right, transparent, rgba(155, 89, 182, 0.3), transparent);
+        }
+        
         /* Hero Section */
         .hero {
             background: linear-gradient(rgba(106, 13, 173, 0.3), rgba(106, 13, 173, 0.4)), 
                         url('Longos2.jpg');
             background-size: cover;
             background-position: center;
-            min-height: 60vh;
+            min-height: 70vh;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: var(--white);
             padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.5) 100%);
         }
         
         .hero-content {
             max-width: 800px;
-            animation: fadeIn 1s ease;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            position: relative;
+            z-index: 2;
         }
         
         .hero h2 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 1.2rem;
             line-height: 1.2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
         }
         
         .hero p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             margin-bottom: 2rem;
             opacity: 0.9;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
         
         /* Button Styles */
@@ -168,7 +220,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0.7rem 1.8rem;
+            padding: 0.8rem 2rem;
             background-color: var(--gold-yellow);
             color: var(--black);
             text-decoration: none;
@@ -176,17 +228,24 @@
             font-weight: 600;
             transition: all 0.3s ease;
             gap: 0.5rem;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(241, 196, 15, 0.3);
+            box-shadow: 0 6px 12px rgba(241, 196, 15, 0.3);
         }
         
         .btn-purple {
             background: linear-gradient(135deg, var(--primary-purple) 0%, var(--light-purple) 100%);
             color: var(--white);
+        }
+        
+        .btn-purple:hover {
+            box-shadow: 0 6px 12px rgba(106, 13, 173, 0.3);
         }
         
         /* Main Content */
@@ -203,14 +262,18 @@
         
         .section-title {
             text-align: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
         }
         
         .section-title h2 {
-            font-size: 2rem;
+            font-size: 2.5rem;
             color: var(--primary-purple);
             position: relative;
             display: inline-block;
+        }
+        
+        .dark-mode .section-title h2 {
+            color: var(--light-purple);
         }
         
         .section-title h2::after {
@@ -219,91 +282,158 @@
             bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
-            width: 60px;
-            height: 3px;
+            width: 80px;
+            height: 4px;
             background: linear-gradient(to right, var(--primary-purple), var(--gold-yellow));
+            border-radius: 2px;
+        }
+        
+        .dark-mode .section-title h2::after {
+            background: linear-gradient(to right, var(--light-purple), var(--gold-yellow));
         }
         
         /* Services Grid */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.8rem;
+            gap: 2rem;
         }
         
         .service-card {
             background: var(--white);
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .dark-mode .service-card {
+            background: var(--card-dark);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
         .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.7) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .service-card:hover::before {
+            opacity: 1;
         }
         
         .service-card img {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover img {
+            transform: scale(1.05);
         }
         
         .service-content {
-            padding: 1.5rem;
+            padding: 1.8rem;
+            position: relative;
         }
         
         .service-content h3 {
             color: var(--primary-purple);
-            margin-bottom: 0.8rem;
-            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            transition: color 0.3s ease;
+        }
+        
+        .dark-mode .service-content h3 {
+            color: var(--light-purple);
+        }
+        
+        .service-card:hover .service-content h3 {
+            color: var(--gold-yellow);
+        }
+        
+        .service-content p {
+            margin-bottom: 1.5rem;
+            color: var(--black);
+        }
+        
+        .dark-mode .service-content p {
+            color: var(--text-dark);
         }
         
         /* Announcements */
         .announcements-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.8rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
         }
         
         .announcement-card {
             background: var(--white);
-            border-radius: 8px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+        }
+        
+        .dark-mode .announcement-card {
+            background: var(--card-dark);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .announcement-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
         
         .announcement-card img {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .announcement-card:hover img {
+            transform: scale(1.05);
         }
         
         .announcement-content {
-            padding: 1.5rem;
+            padding: 1.8rem;
         }
         
         .announcement-date {
             color: var(--light-purple);
             font-weight: 600;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
         
         .announcement-tags {
             display: flex;
             gap: 0.5rem;
-            margin: 0.8rem 0;
+            margin: 1rem 0;
         }
         
         .tag {
-            padding: 0.2rem 0.7rem;
+            padding: 0.3rem 0.8rem;
             border-radius: 50px;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 600;
         }
         
@@ -317,11 +447,40 @@
             color: #d32f2f;
         }
         
+        .dark-mode .tag-event {
+            background-color: rgba(2, 136, 209, 0.2);
+            color: #4fc3f7;
+        }
+        
+        .dark-mode .tag-important {
+            background-color: rgba(211, 47, 47, 0.2);
+            color: #ff8a80;
+        }
+        
+        .announcement-content h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+            color: var(--primary-purple);
+        }
+        
+        .dark-mode .announcement-content h3 {
+            color: var(--light-purple);
+        }
+        
+        .announcement-content p {
+            margin-bottom: 1.5rem;
+            color: var(--black);
+        }
+        
+        .dark-mode .announcement-content p {
+            color: var(--text-dark);
+        }
+        
         /* About Section */
         .about-content {
             display: flex;
             flex-wrap: wrap;
-            gap: 2rem;
+            gap: 3rem;
             align-items: center;
             justify-content: center;
         }
@@ -331,43 +490,127 @@
             min-width: 300px;
         }
         
+        .about-text p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+        
+        .dark-mode .about-text p {
+            color: var(--text-dark);
+        }
+        
         .malabon-badge {
             text-align: center;
-            padding: 1.5rem;
-            border-radius: 8px;
+            padding: 2rem;
+            border-radius: 12px;
             background-color: rgba(154, 89, 182, 0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+        }
+        
+        .dark-mode .malabon-badge {
+            background-color: rgba(154, 89, 182, 0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .malabon-badge:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
         
         .malabon-badge img {
-            height: 80px;
-            margin-bottom: 0.8rem;
+            height: 100px;
+            margin-bottom: 1rem;
+            transition: transform 0.5s ease;
+        }
+        
+        .malabon-badge:hover img {
+            transform: scale(1.1);
+        }
+        
+        .malabon-badge h3 {
+            color: var(--primary-purple);
+            margin-bottom: 0.5rem;
+        }
+        
+        .dark-mode .malabon-badge h3 {
+            color: var(--light-purple);
         }
         
         /* Contact Section */
         .contact-methods {
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
+            gap: 2rem;
             flex-wrap: wrap;
-            margin: 1.5rem 0;
+            margin: 2rem 0;
         }
         
         .contact-card {
             text-align: center;
-            min-width: 180px;
+            min-width: 200px;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: var(--white);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.4s ease;
+        }
+        
+        .dark-mode .contact-card {
+            background: var(--card-dark);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
         
         .contact-card i {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             color: var(--primary-purple);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode .contact-card i {
+            color: var(--light-purple);
+        }
+        
+        .contact-card:hover i {
+            transform: scale(1.2);
+            color: var(--gold-yellow);
+        }
+        
+        .contact-card h3 {
             margin-bottom: 0.8rem;
+            color: var(--primary-purple);
+        }
+        
+        .dark-mode .contact-card h3 {
+            color: var(--light-purple);
+        }
+        
+        .contact-card p {
+            color: var(--black);
+            font-size: 0.95rem;
+        }
+        
+        .dark-mode .contact-card p {
+            color: var(--text-dark);
         }
         
         /* Footer Styles */
         footer {
             background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-purple) 100%);
             color: var(--white);
-            padding: 2rem 0 1rem;
+            padding: 3rem 0 1.5rem;
+            position: relative;
+        }
+        
+        .dark-mode footer {
+            background: var(--header-dark);
         }
         
         .footer-container {
@@ -376,12 +619,12 @@
             padding: 0 2rem;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
+            gap: 2rem;
         }
         
         .footer-column h3 {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
             position: relative;
             padding-bottom: 0.5rem;
         }
@@ -391,9 +634,10 @@
             position: absolute;
             bottom: 0;
             left: 0;
-            width: 30px;
-            height: 2px;
+            width: 40px;
+            height: 3px;
             background-color: var(--gold-yellow);
+            border-radius: 2px;
         }
         
         .footer-column ul {
@@ -401,7 +645,7 @@
         }
         
         .footer-column li {
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.8rem;
         }
         
         .footer-column a {
@@ -411,50 +655,68 @@
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
         }
         
         .footer-column a:hover {
             color: var(--white);
-            transform: translateX(3px);
+            transform: translateX(5px);
         }
         
         .copyright {
             text-align: center;
-            margin-top: 1.5rem;
-            padding-top: 1rem;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
             border-top: 1px solid rgba(255,255,255,0.1);
             color: rgba(255,255,255,0.8);
-            font-size: 0.8rem;
+            font-size: 0.85rem;
         }
-
+        
+        /* Floating Particles */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
         /* Scroll Reveal Animations */
         [data-scroll] {
             opacity: 0;
-            transition: opacity 0.6s ease, transform 0.6s ease;
+            transition: opacity 0.8s ease, transform 0.8s ease;
         }
-
+        
         [data-scroll="fade-up"] {
             transform: translateY(50px);
         }
-
+        
         [data-scroll="fade-down"] {
             transform: translateY(-50px);
         }
-
+        
         [data-scroll="fade-left"] {
             transform: translateX(50px);
         }
-
+        
         [data-scroll="fade-right"] {
             transform: translateX(-50px);
         }
-
+        
         [data-scroll].is-visible {
             opacity: 1;
             transform: translate(0);
         }
-
+        
         /* Back to Top Button */
         .back-to-top {
             position: fixed;
@@ -474,18 +736,23 @@
             visibility: hidden;
             transition: all 0.3s ease;
             z-index: 999;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
             border: none;
         }
-
+        
+        .dark-mode .back-to-top {
+            background: var(--light-purple);
+        }
+        
         .back-to-top.visible {
             opacity: 1;
             visibility: visible;
         }
-
+        
         .back-to-top:hover {
             background: var(--dark-purple);
-            transform: translateY(-3px);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
         }
         
         /* Responsive Design */
@@ -503,7 +770,7 @@
             }
             
             .hero h2 {
-                font-size: 2rem;
+                font-size: 2.2rem;
             }
             
             .hero p {
@@ -511,7 +778,7 @@
             }
             
             .section-title h2 {
-                font-size: 1.6rem;
+                font-size: 2rem;
             }
             
             .about-content {
@@ -520,7 +787,7 @@
             
             .footer-container {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
+                gap: 2rem;
             }
             
             .footer-column {
@@ -561,10 +828,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="login.html" class="login-btn">
-                            <i class="fas fa-user"></i>
-                            Login
-                        </a>
+                        <button class="theme-toggle" aria-label="Toggle dark mode">
+                            <i class="fas fa-moon"></i>
+                        </button>
                     </li>
                 </ul>
             </nav>
@@ -572,8 +838,9 @@
     </header>
 
     <!-- Hero Section -->
-    <section class="hero" data-scroll="fade-up">
-        <div class="hero-content">
+    <section class="hero">
+        <div class="particles" id="particles"></div>
+        <div class="hero-content" data-scroll="fade-up">
             <h2>Welcome to Barangay Longos</h2>
             <p>A peaceful and progressive community in the heart of Malabon City</p>
             <a href="#announcements" class="btn">
@@ -586,7 +853,7 @@
     <!-- Main Content -->
     <main class="main-content">
         <!-- About Section -->
-        <section id="about" class="section" data-scroll="fade-up">
+        <section id="about" class="section">
             <div class="section-title" data-scroll="fade-up">
                 <h2>About Barangay Longos</h2>
             </div>
@@ -616,7 +883,6 @@
                     <div class="service-content">
                         <h3>Request Document</h3>
                         <p>Choose the document you need, answer the form, submit, and claim</p>
-                        <br></br>
                         <a href="#" class="btn">
                             <i class="fas fa-arrow-right"></i>
                             Access Service
@@ -627,8 +893,7 @@
                     <img src="2.jpg" alt="File Complaint">
                     <div class="service-content">
                         <h3>File a Complaint</h3>
-                        <p>Report complaint for the improvement of our community </p>
-                        <br></br>
+                        <p>Report complaint for the improvement of our community</p>
                         <a href="#" class="btn">
                             <i class="fas fa-arrow-right"></i>
                             Access Service
@@ -640,7 +905,6 @@
                     <div class="service-content">
                         <h3>Other Services</h3>
                         <p>Submit suggestions, feedback, or donations</p>
-                        <br></br>
                         <a href="#" class="btn">
                             <i class="fas fa-arrow-right"></i>
                             Access Service
@@ -670,7 +934,7 @@
                             <span class="tag tag-event">Event</span>
                             <span class="tag tag-important">Important</span>
                         </div>
-                        <p>On June 8th, Team Building with KK 2025 took place at the KDR Adventure Camp under the leadership of SK Longos Council..</p>
+                        <p>On June 8th, Team Building with KK 2025 took place at the KDR Adventure Camp under the leadership of SK Longos Council.</p>
                         <a href="#" class="btn btn-purple">
                             <i class="fas fa-newspaper"></i>
                             Read More
@@ -689,8 +953,7 @@
                             <span class="tag tag-event">Event</span>
                             <span class="tag tag-update">Health</span>
                         </div>
-                        <p>The Medical Mission and Dental Mission was successfully conducted at Longos Barangay Hall on June 14, 2025.
-There was Free extraction, free cleaning and free fluoride for the Dental Mission. For the medical mission, there was free check-ups and free medicines. We also have additional services such as Free Haircut and Free Circumcision.</p>
+                        <p>The Medical Mission and Dental Mission was successfully conducted at Longos Barangay Hall on June 14, 2025.</p>
                         <a href="#" class="btn btn-purple">
                             <i class="fas fa-newspaper"></i>
                             Read More
@@ -709,8 +972,7 @@ There was Free extraction, free cleaning and free fluoride for the Dental Missio
                             <span class="tag tag-update">Education</span>
                             <span class="tag tag-important">Deadline</span>
                         </div>
-                        <p>Good news! Young Longosians 💜🤙🏻
-The Youth Learning Hub will be open from 10:00 A.M. to 8:00 P.M. for all young Longosians who would like to get printed.</p>
+                        <p>Good news! Young Longosians 💜🤙🏻 The Youth Learning Hub will be open from 10:00 A.M. to 8:00 P.M. for all young Longosians.</p>
                         <a href="#" class="btn btn-purple">
                             <i class="fas fa-newspaper"></i>
                             Read More
@@ -718,7 +980,7 @@ The Youth Learning Hub will be open from 10:00 A.M. to 8:00 P.M. for all young L
                     </div>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 1.5rem;">
+            <div style="text-align: center; margin-top: 2rem;">
                 <a href="#" class="btn" data-scroll="fade-up">
                     <i class="fas fa-list"></i>
                     View All Announcements
@@ -798,10 +1060,86 @@ The Youth Learning Hub will be open from 10:00 A.M. to 8:00 P.M. for all young L
 
     <!-- Back to Top Button -->
     <button class="back-to-top" title="Go to top">
-        <i class="fas fa-arrow-up"></i>
+	        <i class="fas fa-arrow-up"></i>
     </button>
 
     <script>
+        // Dark Mode Toggle
+        const themeToggle = document.querySelector('.theme-toggle');
+        const body = document.body;
+        
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            body.classList.add(currentTheme);
+            updateThemeIcon();
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const theme = body.classList.contains('dark-mode') ? 'dark-mode' : '';
+            localStorage.setItem('theme', theme);
+            updateThemeIcon();
+        });
+        
+        function updateThemeIcon() {
+            if (body.classList.contains('dark-mode')) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        }
+        
+        // Floating Particles Effect
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 5 + 2;
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                const delay = Math.random() * 5;
+                const duration = Math.random() * 10 + 10;
+                const opacity = Math.random() * 0.5 + 0.1;
+                
+                // Apply styles
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${posX}%`;
+                particle.style.top = `${posY}%`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.opacity = opacity;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Floating animation
+        document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                @keyframes float {
+                    0% {
+                        transform: translateY(0) translateX(0);
+                    }
+                    50% {
+                        transform: translateY(-100px) translateX(20px);
+                    }
+                    100% {
+                        transform: translateY(0) translateX(0);
+                    }
+                }
+                .particle {
+                    animation: float infinite ease-in-out;
+                }
+            </style>
+        `);
+        
         // Scroll reveal animation
         const scrollElements = document.querySelectorAll('[data-scroll]');
         
@@ -826,6 +1164,7 @@ The Youth Learning Hub will be open from 10:00 A.M. to 8:00 P.M. for all young L
         
         // Initialize
         window.addEventListener('load', () => {
+            createParticles();
             handleScrollAnimation();
         });
         
@@ -871,6 +1210,119 @@ The Youth Learning Hub will be open from 10:00 A.M. to 8:00 P.M. for all young L
                 behavior: 'smooth'
             });
         });
+
+        // Service card hover effect enhancement
+        const serviceCards = document.querySelectorAll('.service-card');
+        serviceCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const img = card.querySelector('img');
+                img.style.transform = 'scale(1.05)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                const img = card.querySelector('img');
+                img.style.transform = 'scale(1)';
+            });
+        });
+
+        // Announcement card hover effect
+        const announcementCards = document.querySelectorAll('.announcement-card');
+        announcementCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const img = card.querySelector('img');
+                img.style.transform = 'scale(1.05)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                const img = card.querySelector('img');
+                img.style.transform = 'scale(1)';
+            });
+        });
+
+        // Contact card hover effect
+        const contactCards = document.querySelectorAll('.contact-card');
+        contactCards.forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                const icon = card.querySelector('i');
+                icon.style.transform = 'scale(1.2)';
+                icon.style.color = 'var(--gold-yellow)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                const icon = card.querySelector('i');
+                icon.style.transform = 'scale(1)';
+                icon.style.color = '';
+            });
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Add ripple effect to buttons
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const circle = document.createElement('span');
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+            
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
+            circle.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`;
+            circle.classList.add('ripple');
+            
+            const ripple = button.getElementsByClassName('ripple')[0];
+            if (ripple) {
+                ripple.remove();
+            }
+            
+            button.appendChild(circle);
+        }
+
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('click', createRipple);
+        });
+
+        // Add ripple effect styles
+        document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                .ripple {
+                    position: absolute;
+                    border-radius: 50%;
+                    background-color: rgba(255, 255, 255, 0.7);
+                    transform: scale(0);
+                    animation: ripple 600ms linear;
+                    pointer-events: none;
+                }
+                
+                @keyframes ripple {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+                
+                .btn {
+                    position: relative;
+                    overflow: hidden;
+                }
+            </style>
+        `);
     </script>
 </body>
 </html>
