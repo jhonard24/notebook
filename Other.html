@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Other Services | Barangay Longos</title>
+    <style>
+        :root {
+            --primary-purple: #6a0dad;
+            --light-purple: #9b59b6;
+            --dark-purple: #4a148c;
+            --gold-yellow: #f1c40f;
+            --light-yellow: #f9e79f;
+            --white: #ffffff;
+            --black: #2c3e50;
+            --light-gray: #f8f9fa;
+            --section-padding: 4rem 0;
+            
+            /* Dark mode variables */
+            --bg-dark: #121212;
+            --card-dark: #1e1e1e;
+            --text-dark: #e0e0e0;
+            --header-dark: #1a1a1a;
+            --border-dark: #333333;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--black);
+            background-color: var(--light-gray);
+            line-height: 1.6;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        body.dark-mode {
+            color: var(--text-dark);
+            background-color: var(--bg-dark);
+        }
+        
+        /* Header - Matches Brgy.html */
+        header {
+            background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-purple) 100%);
+            color: var(--white);
+            padding: 0.8rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode header {
+            background: var(--header-dark);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo img {
+            height: 50px;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+        
+        .logo-text p {
+            font-size: 0.7rem;
+            color: var(--light-yellow);
+            font-style: italic;
+        }
+        
+        /* Navigation */
+        .nav-container {
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gold-yellow);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold-yellow);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--white);
+            margin-left: 1rem;
+        }
+        
+        .theme-toggle:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(30deg);
+        }
+        
+        /* Button Styles - Matches Brgy.html */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 2rem;
+            background-color: var(--gold-yellow);
+            color: var(--black);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(241, 196, 15, 0.3);
+        }
+        
+        .btn-purple {
+            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--light-purple) 100%);
+            color: var(--white);
+        }
+        
+        .btn-purple:hover {
+            box-shadow: 0 6px 12px rgba(106, 13, 173, 0.3);
+        }
+        
+        /* Main Content Styles */
+        .main-content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            flex: 1;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary-purple);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .dark-mode .section-title h2 {
+            color: var(--light-purple);
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-purple), var(--gold-yellow));
+            border-radius: 2px;
+        }
+        
+        .dark-mode .section-title h2::after {
+            background: linear-gradient(to right, var(--light-purple), var(--gold-yellow));
+        }
+        
+        /* Services Grid */
+        .services-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+        
+        .service-tab {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--white);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border: 2px solid var(--light-purple);
+            color: var(--primary-purple);
+        }
+        
+        .dark-mode .service-tab {
+            background-color: var(--card-dark);
+            color: var(--light-purple);
+            border-color: var(--light-purple);
+        }
+        
+        .service-tab:hover {
+            background-color: var(--light-purple);
+            color: var(--white);
+        }
+        
+        .service-tab.active {
+            background-color: var(--primary-purple);
+            color: var(--white);
+            border-color: var(--primary-purple);
+        }
+        
+        .dark-mode .service-tab.active {
+            background-color: var(--light-purple);
+            border-color: var(--light-purple);
+        }
+        
+        /* Form Container */
+        .form-container {
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            padding: 2rem;
+            margin-top: 1rem;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .dark-mode .form-container {
+            background: var(--card-dark);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-color: var(--border-dark);
+        }
+        
+        .form-title {
+            color: var(--primary-purple);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .dark-mode .form-title {
+            color: var(--light-purple);
+        }
+        
+        .form-title i {
+            font-size: 1.8rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--primary-purple);
+        }
+        
+        .dark-mode .form-group label {
+            color: var(--light-purple);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            background-color: var(--white);
+            color: var(--black);
+        }
+        
+        .dark-mode .form-control {
+            background-color: var(--bg-dark);
+            border-color: var(--border-dark);
+            color: var(--text-dark);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-purple);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(106, 13, 173, 0.1);
+        }
+        
+        .dark-mode .form-control:focus {
+            box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.2);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        /* Rating Stars */
+        .rating-star {
+            color: #ddd;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .rating-star:hover,
+        .rating-star.active {
+            color: var(--gold-yellow);
+        }
+        
+        /* Back to Services Link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-purple);
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode .back-link {
+            color: var(--light-purple);
+        }
+        
+        .back-link:hover {
+            color: var(--dark-purple);
+            transform: translateX(-5px);
+        }
+        
+        .dark-mode .back-link:hover {
+            color: var(--gold-yellow);
+        }
+        
+        /* Success Message */
+        .success-message {
+            text-align: center;
+            padding: 2rem;
+            background-color: rgba(46, 204, 113, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #2ecc71;
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .success-message i {
+            font-size: 3rem;
+            color: #2ecc71;
+            margin-bottom: 1rem;
+        }
+        
+        .success-message h3 {
+            color: var(--primary-purple);
+            margin-bottom: 1rem;
+        }
+        
+        .dark-mode .success-message h3 {
+            color: var(--light-purple);
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-purple) 100%);
+            color: var(--white);
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .dark-mode footer {
+            background: var(--header-dark);
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-column h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold-yellow);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .footer-links a:hover {
+            color: var(--gold-yellow);
+            padding-left: 5px;
+        }
+        
+        .contact-info {
+            list-style: none;
+        }
+        
+        .contact-info li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .contact-info i {
+            color: var(--gold-yellow);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+                text-align: center;
+            }
+            
+            .theme-toggle {
+                margin: 1rem 0 0;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .services-tabs {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .service-tab {
+                text-align: center;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header with Navigation -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="Logo.png" alt="Barangay Longos Logo">
+                <div class="logo-text">
+                    <h1>BARANGAY LONGOS</h1>
+                    <p>"Kalinisan ay Pagandahin, Kapayapaan ay Pagtibayin"</p>
+                </div>
+            </div>
+            
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="Brgy.html">Home</a></li>
+                    <li><a href="Brgy.html#about">About</a></li>
+                    <li><a href="Brgy.html#services">Services</a></li>
+                    <li><a href="Brgy.html#announcements">Announcements</a></li>
+                    <li><a href="Brgy.html#contact">Contact</a></li>
+                </ul>
+                
+                <button class="theme-toggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="section-title">
+            <h2>Other Services</h2>
+        </div>
+        
+        <a href="Brgy.html#services" class="back-link">
+            <i class="fas fa-chevron-left"></i>
+            Back to All Services
+        </a>
+        
+        <!-- Service Tabs -->
+        <div class="services-tabs">
+            <div class="service-tab active" data-tab="suggestion">
+                <i class="fas fa-lightbulb"></i> Suggestion
+            </div>
+            <div class="service-tab" data-tab="feedback">
+                <i class="fas fa-comment-alt"></i> Feedback
+            </div>
+            <div class="service-tab" data-tab="donation">
+                <i class="fas fa-hand-holding-heart"></i> Donation
+            </div>
+            <div class="service-tab" data-tab="volunteer">
+                <i class="fas fa-hands-helping"></i> Volunteer
+            </div>
+            <div class="service-tab" data-tab="blotter">
+                <i class="fas fa-gavel"></i> Blotter Report
+            </div>
+            <div class="service-tab" data-tab="bug">
+                <i class="fas fa-bug"></i> Report Bug
+            </div>
+        </div>
+        
+        <!-- Form Container -->
+        <div class="form-container">
+            <!-- Suggestion Form (Default) -->
+            <div id="suggestion-form" class="service-form">
+                <div class="form-title">
+                    <i class="fas fa-lightbulb"></i>
+                    <h2>Submit a Suggestion</h2>
+                </div>
+                
+                <form id="suggestionForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="suggestion-name">Full Name</label>
+                            <input type="text" id="suggestion-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="suggestion-contact">Contact Number</label>
+                            <input type="tel" id="suggestion-contact" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="suggestion-email">Email Address</label>
+                        <input type="email" id="suggestion-email" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="suggestion-subject">Subject</label>
+                        <input type="text" id="suggestion-subject" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="suggestion-message">Your Suggestion</label>
+                        <textarea id="suggestion-message" class="form-control" rows="5" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="suggestion-category">Category</label>
+                        <select id="suggestion-category" class="form-control" required>
+                            <option value="">Select Category</option>
+                            <option value="community">Community Improvement</option>
+                            <option value="safety">Public Safety</option>
+                            <option value="environment">Environment</option>
+                            <option value="events">Events & Activities</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Suggestion
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Feedback Form (Hidden by default) -->
+            <div id="feedback-form" class="service-form" style="display: none;">
+                <div class="form-title">
+                    <i class="fas fa-comment-alt"></i>
+                    <h2>Submit Feedback</h2>
+                </div>
+                
+                <form id="feedbackForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="feedback-name">Full Name</label>
+                            <input type="text" id="feedback-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="feedback-contact">Contact Number</label>
+                            <input type="tel" id="feedback-contact" class="form-control">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="feedback-service">Service You're Providing Feedback On</label>
+                        <select id="feedback-service" class="form-control" required>
+                            <option value="">Select Service</option>
+                            <option value="document">Document Request</option>
+                            <option value="complaint">Complaint System</option>
+                            <option value="events">Community Events</option>
+                            <option value="staff">Barangay Staff</option>
+                            <option value="facilities">Barangay Facilities</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Rating</label>
+                        <div style="display: flex; gap: 1rem; justify-content: center; margin: 1rem 0;">
+                            <input type="radio" id="rating5" name="rating" value="5" style="display: none;">
+                            <label for="rating5" class="rating-star"><i class="fas fa-star"></i></label>
+                            
+                            <input type="radio" id="rating4" name="rating" value="4" style="display: none;">
+                            <label for="rating4" class="rating-star"><i class="fas fa-star"></i></label>
+                            
+                            <input type="radio" id="rating3" name="rating" value="3" style="display: none;">
+                            <label for="rating3" class="rating-star"><i class="fas fa-star"></i></label>
+                            
+                            <input type="radio" id="rating2" name="rating" value="2" style="display: none;">
+                            <label for="rating2" class="rating-star"><i class="fas fa-star"></i></label>
+                            
+                            <input type="radio" id="rating1" name="rating" value="1" style="display: none;">
+                            <label for="rating1" class="rating-star"><i class="fas fa-star"></i></label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="feedback-message">Your Feedback</label>
+                        <textarea id="feedback-message" class="form-control" rows="5" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Feedback
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Donation Form (Hidden by default) -->
+            <div id="donation-form" class="service-form" style="display: none;">
+                <div class="form-title">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    <h2>Make a Donation</h2>
+                </div>
+                
+                <form id="donationForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="donation-name">Full Name</label>
+                            <input type="text" id="donation-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="donation-contact">Contact Number</label>
+                            <input type="tel" id="donation-contact" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="donation-email">Email Address</label>
+                        <input type="email" id="donation-email" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="donation-type">Donation Type</label>
+                        <select id="donation-type" class="form-control" required>
+                            <option value="">Select Donation Type</option>
+                            <option value="cash">Cash Donation</option>
+                            <option value="goods">Goods/Items</option>
+                            <option value="service">Service/Volunteer</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="donation-purpose">Purpose of Donation</label>
+                        <select id="donation-purpose" class="form-control" required>
+                            <option value="">Select Purpose</option>
+                            <option value="events">Community Events</option>
+                            <option value="facilities">Barangay Facilities</option>
+                            <option value="education">Education Programs</option>
+                            <option value="health">Health Services</option>
+                            <option value="disaster">Disaster Relief</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group" id="cash-donation-group">
+                        <label for="donation-amount">Amount (PHP)</label>
+                        <input type="number" id="donation-amount" class="form-control" min="1">
+                    </div>
+                    
+                    <div class="form-group" id="goods-donation-group" style="display: none;">
+                        <label for="donation-items">Items Description</label>
+                        <textarea id="donation-items" class="form-control" rows="3" placeholder="Please describe the items you wish to donate"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="donation-message">Additional Message</label>
+                        <textarea id="donation-message" class="form-control" rows="3"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Donation
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Volunteer Form (Hidden by default) -->
+            <div id="volunteer-form" class="service-form" style="display: none;">
+                <div class="form-title">
+                    <i class="fas fa-hands-helping"></i>
+                    <h2>Volunteer Application</h2>
+                </div>
+                
+                <form id="volunteerForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="volunteer-name">Full Name</label>
+                            <input type="text" id="volunteer-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="volunteer-contact">Contact Number</label>
+                            <input type="tel" id="volunteer-contact" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="volunteer-email">Email Address</label>
+                            <input type="email" id="volunteer-email" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="volunteer-birthdate">Date of Birth</label>
+                            <input type="date" id="volunteer-birthdate" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="volunteer-address">Complete Address</label>
+                        <input type="text" id="volunteer-address" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="volunteer-skills">Skills/Expertise</label>
+                        <textarea id="volunteer-skills" class="form-control" rows="3" required placeholder="Please list your skills or areas of expertise"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="volunteer-areas">Areas of Interest</label>
+                        <select id="volunteer-areas" class="form-control" multiple size="5" required>
+                            <option value="events">Community Events</option>
+                            <option value="education">Education Programs</option>
+                            <option value="health">Health Services</option>
+                            <option value="environment">Environmental Programs</option>
+                            <option value="seniors">Senior Citizen Services</option>
+                            <option value="youth">Youth Programs</option>
+                            <option value="disaster">Disaster Response</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <small class="form-text">Hold Ctrl/Cmd to select multiple options</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="volunteer-availability">Availability</label>
+                        <select id="volunteer-availability" class="form-control" required>
+                            <option value="">Select Availability</option>
+                            <option value="weekdays">Weekdays</option>
+                            <option value="weekends">Weekends</option>
+                            <option value="both">Both Weekdays and Weekends</option>
+                            <option value="flexible">Flexible</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="volunteer-message">Why do you want to volunteer?</label>
+                        <textarea id="volunteer-message" class="form-control" rows="3" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Application
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Blotter Form (Hidden by default) -->
+            <div id="blotter-form" class="service-form" style="display: none;">
+                <div class="form-title">
+                    <i class="fas fa-gavel"></i>
+                    <h2>Blotter Report</h2>
+                </div>
+                
+                <div style="background-color: #ffebee; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 4px solid #f44336;">
+                    <h4 style="color: #d32f2f; margin-bottom: 0.5rem;"><i class="fas fa-exclamation-triangle"></i> Important Notice</h4>
+                    <p style="color: #b71c1c; font-size: 0.9rem;">For emergencies, please call the barangay hotline immediately at (02) 123-4567 or visit the barangay hall in person.</p>
+                </div>
+                
+                <form id="blotterForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="blotter-name">Complainant's Full Name</label>
+                            <input type="text" id="blotter-name" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="blotter-contact">Contact Number</label>
+                            <input type="tel" id="blotter-contact" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="blotter-address">Complainant's Address</label>
+                        <input type="text" id="blotter-address" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="blotter-respondent">Respondent's Name (if known)</label>
+                        <input type="text" id="blotter-respondent" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="blotter-incident">Incident Description</label>
+                        <textarea id="blotter-incident" class="form-control" rows="5" required></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="blotter-date">Date of Incident</label>
+                            <input type="date" id="blotter-date" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="blotter-time">Time of Incident</label>
+                            <input type="time" id="blotter-time" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="blotter-location">Location of Incident</label>
+                        <input type="text" id="blotter-location" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="blotter-witnesses">Witnesses (if any)</label>
+                        <textarea id="blotter-witnesses" class="form-control" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="blotter-evidence">Evidence (Photos, Videos, etc.)</label>
+                        <input type="file" id="blotter-evidence" class="form-control" multiple>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div style="display: flex; align-items: center; gap: 0.5rem;">
+                            <input type="checkbox" id="blotter-confirm" required>
+                            <label for="blotter-confirm" style="margin-bottom: 0;">I confirm that the information provided is true and accurate to the best of my knowledge.</label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Report
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Bug Report Form (Hidden by default) -->
+            <div id="bug-form" class="service-form" style="display: none;">
+                <div class="form-title">
+                    <i class="fas fa-bug"></i>
+                    <h2>Report Website Issue</h2>
+                </div>
+                
+                <form id="bugForm">
+                    <div class="form-group">
+                        <label for="bug-name">Your Name</label>
+                        <input type="text" id="bug-name" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bug-email">Email Address</label>
+                        <input type="email" id="bug-email" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bug-page">Page Where Issue Occurred</label>
+                        <input type="text" id="bug-page" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bug-type">Issue Type</label>
+                        <select id="bug-type" class="form-control" required>
+                            <option value="">Select Issue Type</option>
+                            <option value="broken-link">Broken Link</option>
+                            <option value="display">Display Problem</option>
+                            <option value="functionality">Functionality Issue</option>
+                            <option value="performance">Performance Problem</option>
+                            <option value="security">Security Concern</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bug-description">Description of Issue</label>
+                        <textarea id="bug-description" class="form-control" rows="5" required placeholder="Please describe the issue in detail, including what you were trying to do when it occurred"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bug-screenshot">Screenshot (if available)</label>
+                        <input type="file" id="bug-screenshot" class="form-control" accept="image/*">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bug-browser">Browser Information</label>
+                        <input type="text" id="bug-browser" class="form-control" placeholder="e.g., Chrome 98, Firefox 97, etc.">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bug-device">Device Information</label>
+                        <input type="text" id="bug-device" class="form-control" placeholder="e.g., Windows 10, iPhone 13, etc.">
+                    </div>
+                    
+                    <button type="submit" class="btn" style="width: 100%;">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Report
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        <!-- Success Message (hidden by default) -->
+        <div id="success-message" class="success-message">
+            <i class="fas fa-check-circle"></i>
+            <h3>Submission Successful!</h3>
+            <p>Your form has been successfully submitted. Thank you for your contribution to our community.</p>
+            <button class="btn" onclick="location.href='Brgy.html'">
+                <i class="fas fa-home"></i>
+                Return to Homepage
+            </button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="Brgy.html">Home</a></li>
+                    <li><a href="Brgy.html#about">About Us</a></li>
+                    <li><a href="Brgy.html#services">Services</a></li>
+                    <li><a href="Brgy.html#announcements">Announcements</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Contact Information</h4>
+                <ul class="contact-info">
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Barangay Hall, Longos, Malabon City</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone-alt"></i>
+                        <span>(02) 123-4567</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <span>info@barangaylongos.gov.ph</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h4>Office Hours</h4>
+                <ul class="contact-info">
+                    <li>
+                        <i class="fas fa-clock"></i>
+                        <span>Monday-Friday: 8:00 AM - 5:00 PM</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-clock"></i>
+                        <span>Saturday: 8:00 AM - 12:00 PM</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-ban"></i>
+                        <span>Sunday: Closed</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Barangay Longos. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Dark Mode Toggle
+        const themeToggle = document.querySelector('.theme-toggle');
+        const body = document.body;
+        
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            body.classList.add(currentTheme);
+            updateThemeIcon();
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const theme = body.classList.contains('dark-mode') ? 'dark-mode' : '';
+            localStorage.setItem('theme', theme);
+            updateThemeIcon();
+        });
+        
+        function updateThemeIcon() {
+            if (body.classList.contains('dark-mode')) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        }
+        
+        // Tab Switching Functionality
+        const tabs = document.querySelectorAll('.service-tab');
+        const forms = document.querySelectorAll('.service-form');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                
+                // Hide all forms
+                forms.forEach(form => form.style.display = 'none');
+                
+                // Show the selected form
+                const tabName = tab.getAttribute('data-tab');
+                document.getElementById(`${tabName}-form`).style.display = 'block';
+            });
+        });
+        
+        // Rating Stars Functionality
+        const ratingStars = document.querySelectorAll('.rating-star');
+        ratingStars.forEach(star => {
+            star.addEventListener('click', () => {
+                const ratingValue = star.previousElementSibling.value;
+                
+                // Highlight selected stars
+                ratingStars.forEach((s, index) => {
+                    if (index < ratingValue) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+        });
+        
+        // Donation Type Toggle
+        const donationType = document.getElementById('donation-type');
+        donationType.addEventListener('change', function() {
+            const cashGroup = document.getElementById('cash-donation-group');
+            const goodsGroup = document.getElementById('goods-donation-group');
+            
+            if (this.value === 'cash') {
+                cashGroup.style.display = 'block';
+                goodsGroup.style.display = 'none';
+            } else if (this.value === 'goods') {
+                cashGroup.style.display = 'none';
+                goodsGroup.style.display = 'block';
+            } else {
+                cashGroup.style.display = 'none';
+                goodsGroup.style.display = 'none';
+            }
+        });
+        
+        // Form Submission Handling
+        const formsToSubmit = ['suggestionForm', 'feedbackForm', 'donationForm', 'volunteerForm', 'blotterForm', 'bugForm'];
+        
+        formsToSubmit.forEach(formId => {
+            const form = document.getElementById(formId);
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // In a real implementation, you would send the form data to your backend here
+                    // For this demo, we'll just show the success message
+                    
+                    // Hide the form
+                    this.style.display = 'none';
+                    
+                    // Show success message
+                    document.getElementById('success-message').style.display = 'block';
+                    
+                    // Reset form after submission
+                    setTimeout(() => {
+                        this.reset();
+                        this.style.display = 'block';
+                        document.getElementById('success-message').style.display = 'none';
+                    }, 5000);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

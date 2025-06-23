@@ -1,0 +1,1331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File a Complaint - Barangay Longos</title>
+    <style>
+        /* Reuse all the same root variables and base styles from Brgy.html */
+        :root {
+            --primary-purple: #6a0dad;
+            --light-purple: #9b59b6;
+            --dark-purple: #4a148c;
+            --gold-yellow: #f1c40f;
+            --light-yellow: #f9e79f;
+            --white: #ffffff;
+            --black: #2c3e50;
+            --light-gray: #f8f9fa;
+            --section-padding: 4rem 0;
+            
+            /* Dark mode variables */
+            --bg-dark: #121212;
+            --card-dark: #1e1e1e;
+            --text-dark: #e0e0e0;
+            --header-dark: #1a1a1a;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--black);
+            background-color: var(--white); /* Changed to white */
+            line-height: 1.6;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        /* Header Styles - Matching Brgy.html */
+        header {
+            background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-purple) 100%);
+            color: var(--white);
+            padding: 0.8rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode header {
+            background: var(--header-dark);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        header.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo img {
+            height: 50px;
+            transition: all 0.3s ease;
+        }
+        
+        header.scrolled .logo img {
+            height: 40px;
+        }
+        
+        .logo-text h1 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            line-height: 1.2;
+            color: var(--white); /* Added white color */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Added shadow for better visibility */
+        }
+        
+        .logo-text p {
+            font-size: 0.7rem;
+            color: var(--light-yellow);
+            font-style: italic;
+        }
+
+        /* Navigation - Matching Brgy.html */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.2rem;
+            align-items: center;
+        }
+        
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--gold-yellow);
+            transition: width 0.3s ease;
+        }
+        
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a.active {
+            color: var(--gold-yellow);
+        }
+
+        /* Theme Toggle - Matching Brgy.html */
+        .theme-toggle {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--white);
+        }
+        
+        .theme-toggle:hover {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(30deg);
+        }
+
+        /* Form Hero Section - Updated with solid color */
+        .form-hero {
+            background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-purple) 100%);
+            color: var(--white);
+            min-height: 30vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .form-hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .form-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.2;
+        }
+        
+        .form-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Main Content - Matching Brgy.html */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            padding: 0 2rem;
+        }
+
+        /* Form Container - Enhanced with white background and better shadow */
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2.5rem;
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            position: relative;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .dark-mode .form-container {
+            background: var(--card-dark);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border-color: rgba(255,255,255,0.1);
+        }
+        
+        .form-container:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        /* Form Title - Matching Brgy.html section titles */
+        .form-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-purple);
+            font-size: 1.8rem;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .dark-mode .form-title {
+            color: var(--light-purple);
+        }
+        
+        .form-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-purple), var(--gold-yellow));
+            border-radius: 2px;
+        }
+        
+        .dark-mode .form-title::after {
+            background: linear-gradient(to right, var(--light-purple), var(--gold-yellow));
+        }
+
+        /* Form Elements - Enhanced styling */
+        .form-group {
+            margin-bottom: 1.8rem;
+            position: relative;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-col {
+            flex: 1;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            color: var(--primary-purple);
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode label {
+            color: var(--light-purple);
+        }
+        
+        .input-wrapper {
+            position: relative;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            transition: all 0.3s ease;
+            background-color: var(--white);
+        }
+        
+        .dark-mode input[type="text"],
+        .dark-mode input[type="email"],
+        .dark-mode input[type="tel"],
+        .dark-mode select,
+        .dark-mode textarea {
+            background-color: var(--bg-dark);
+            border-color: #333;
+            color: var(--text-dark);
+        }
+        
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-purple);
+            box-shadow: 0 0 0 3px rgba(155, 89, 182, 0.2);
+        }
+        
+        .input-icon {
+            position: absolute;
+            right: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--light-purple);
+        }
+        
+        textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        /* Anonymous Toggle - Enhanced styling */
+        .anonymous-toggle {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: rgba(241, 196, 15, 0.1);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--gold-yellow);
+        }
+        
+        .dark-mode .anonymous-toggle {
+            background-color: rgba(241, 196, 15, 0.15);
+        }
+        
+        .anonymous-toggle:hover {
+            background-color: rgba(241, 196, 15, 0.2);
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            margin-right: 1rem;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--primary-purple);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .anonymous-text {
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* File Upload - Enhanced styling */
+        .file-upload {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .file-upload-label {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 1rem 1.5rem;
+            background-color: rgba(106, 13, 173, 0.05);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px dashed var(--light-purple);
+            text-align: center;
+            min-height: 100px;
+            flex-direction: column;
+        }
+        
+        .dark-mode .file-upload-label {
+            background-color: rgba(106, 13, 173, 0.1);
+            border-color: var(--light-purple);
+        }
+        
+        .file-upload-label:hover {
+            background-color: rgba(106, 13, 173, 0.1);
+            border-color: var(--primary-purple);
+        }
+        
+        .dark-mode .file-upload-label:hover {
+            background-color: rgba(106, 13, 173, 0.2);
+        }
+        
+        .file-upload-icon {
+            font-size: 1.8rem;
+            color: var(--light-purple);
+        }
+        
+        .file-upload-text {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .dark-mode .file-upload-text {
+            color: #aaa;
+        }
+
+        /* File Preview */
+        .file-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .file-preview-item {
+            background-color: rgba(106, 13, 173, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .file-preview-item i {
+            color: var(--light-purple);
+        }
+        
+        .remove-file {
+            cursor: pointer;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-left: 0.5rem;
+        }
+
+        /* Form Actions - Enhanced button styling */
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            gap: 1.5rem;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem 2rem;
+            background-color: var(--gold-yellow);
+            color: var(--black);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(241, 196, 15, 0.3);
+        }
+        
+        .btn-purple {
+            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--light-purple) 100%);
+            color: var(--white);
+        }
+        
+        .btn-purple:hover {
+            box-shadow: 0 6px 12px rgba(106, 13, 173, 0.3);
+        }
+        
+        .btn-reset {
+            background-color: #e74c3c;
+            color: white;
+            flex: 1;
+        }
+        
+        .btn-submit {
+            background: linear-gradient(135deg, var(--primary-purple) 0%, var(--light-purple) 100%);
+            color: white;
+            flex: 2;
+        }
+
+        /* Checkbox Styling */
+        .form-group label[for="consent"] {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            color: var(--black);
+            font-weight: 400;
+        }
+        
+        .dark-mode .form-group label[for="consent"] {
+            color: var(--text-dark);
+        }
+        
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-purple);
+            cursor: pointer;
+        }
+
+        /* Modal - Enhanced styling */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background-color: var(--white);
+            padding: 3rem;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            animation: modalSlideUp 0.4s ease;
+            border-top: 5px solid var(--gold-yellow);
+        }
+        
+        @keyframes modalSlideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .dark-mode .modal-content {
+            background-color: var(--card-dark);
+        }
+        
+        .modal-icon {
+            font-size: 4rem;
+            color: var(--gold-yellow);
+            margin-bottom: 1.5rem;
+            animation: bounce 1s ease infinite alternate;
+        }
+        
+        @keyframes bounce {
+            from { transform: translateY(0) scale(1); }
+            to { transform: translateY(-10px) scale(1.05); }
+        }
+        
+        .modal-title {
+            color: var(--primary-purple);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .dark-mode .modal-title {
+            color: var(--light-purple);
+        }
+        
+        .modal-text {
+            margin-bottom: 2rem;
+            line-height: 1.7;
+        }
+        
+        .complaint-details {
+            background-color: var(--light-gray);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+        
+        .dark-mode .complaint-details {
+            background-color: #333;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background-color: #e1f5fe;
+            color: #0288d1;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .dark-mode .status-badge {
+            background-color: rgba(2, 136, 209, 0.2);
+            color: #4fc3f7;
+        }
+
+        /* Footer - Matching Brgy.html exactly */
+        footer {
+            background: linear-gradient(135deg, var(--dark-purple) 0%, var(--primary-purple) 100%);
+            color: var(--white);
+            padding: 3rem 0 1.5rem;
+            position: relative;
+            margin-top: auto;
+        }
+        
+        .dark-mode footer {
+            background: var(--header-dark);
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--gold-yellow);
+            border-radius: 2px;
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-column a {
+            color: var(--light-yellow);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .footer-column a:hover {
+            color: var(--white);
+            transform: translateX(5px);
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.8);
+            font-size: 0.85rem;
+        }
+
+        /* Back to Top Button - Matching Brgy.html */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-purple);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 999;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            border: none;
+        }
+        
+        .dark-mode .back-to-top {
+            background: var(--light-purple);
+        }
+        
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            background: var(--dark-purple);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+        }
+
+        /* Responsive Design - Matching Brgy.html */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.8rem;
+            }
+            
+            .form-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .form-hero p {
+                font-size: 1rem;
+            }
+            
+            .form-container {
+                padding: 1.5rem;
+                margin: 0 1rem 1rem;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .form-actions {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .btn-reset, .btn-submit {
+                width: 100%;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .footer-column {
+                text-align: center;
+            }
+            
+            .footer-column h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header - Matching Brgy.html exactly -->
+    <header>
+        <div class="header-container">
+            <a href="Brgy.html" class="logo">
+                <img src="Logo.png" alt="Barangay Longos Logo">
+                <div class="logo-text">
+                    <h1>BARANGAY LONGOS</h1>
+                    <p>"Kalinisan ay Pagandahin, Kapayapaan ay Pagtibayin"</p>
+                </div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="Brgy.html">Home</a></li>
+                    <li><a href="Brgy.html#about">About</a></li>
+                    <li><a href="Brgy.html#services">Services</a></li>
+                    <li><a href="Brgy.html#announcements">Announcements</a></li>
+                    <li><a href="Brgy.html#contact">Contact</a></li>
+                    <li>
+                        <button class="theme-toggle" aria-label="Toggle dark mode">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section - Updated with solid color -->
+    <section class="form-hero">
+        <div class="form-hero-content">
+            <h1>File a Complaint</h1>
+            <p>Help us improve our community by reporting issues and concerns</p>
+            <a href="#complaintForm" class="btn">
+                <i class="fas fa-arrow-down"></i>
+                Fill Out Form
+            </a>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="form-container" id="complaintForm">
+            <form>
+                <h2 class="form-title">Complaint Information</h2>
+                
+                <!-- Anonymous Toggle -->
+                <div class="anonymous-toggle">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="anonymousToggle">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="anonymous-text">Submit anonymously (your personal information will not be recorded)</span>
+                </div>
+                
+                <div class="form-row" id="personalInfoSection">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="firstName" placeholder="Enter first name" required>
+                                <i class="fas fa-user input-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="lastName" placeholder="Enter last name" required>
+                                <i class="fas fa-user input-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-row" id="contactInfoSection">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <div class="input-wrapper">
+                                <input type="email" id="email" placeholder="Enter email address">
+                                <i class="fas fa-envelope input-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label for="phone">Mobile Number</label>
+                            <div class="input-wrapper">
+                                <input type="tel" id="phone" placeholder="Enter phone number" required>
+                                <i class="fas fa-phone input-icon"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="complaintType">Type of Complaint</label>
+                    <select id="complaintType" required>
+                        <option value="">Select Type of Complaint</option>
+                        <option value="noise">Noise Disturbance</option>
+                        <option value="property">Property Dispute</option>
+                        <option value="sanitation">Sanitation Issue</option>
+                        <option value="safety">Public Safety Concern</option>
+                        <option value="parking">Parking Violation</option>
+                        <option value="animal">Animal Complaint</option>
+                        <option value="harassment">Harassment or Discrimination</option>
+                        <option value="vandalism">Vandalism or Property Damage</option>
+                        <option value="illegal">Illegal Activity</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="urgency">Urgency Level</label>
+                    <select id="urgency" required>
+                        <option value="">Select Urgency Level</option>
+                        <option value="low">Low (Non-urgent)</option>
+                        <option value="medium">Medium (Important but not emergency)</option>
+                        <option value="high">High (Needs prompt attention)</option>
+                        <option value="emergency">Emergency (Immediate danger)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Location of Complaint</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="location" placeholder="Enter exact location or address" required>
+                        <i class="fas fa-map-marker-alt input-icon"></i>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Complaint Details</label>
+                    <textarea id="description" placeholder="Please describe your complaint in detail (what happened, when it occurred, who was involved, etc.)" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label>Evidence or Attachments (Optional)</label>
+                    <div class="file-upload">
+                        <label for="evidence" class="file-upload-label">
+                            <i class="fas fa-cloud-upload-alt file-upload-icon"></i>
+                            <span class="file-upload-text">Drag & drop files here or click to browse</span>
+                            <span class="file-upload-text" style="font-size: 0.8rem;">Max file size: 5MB (Images, PDF, Docs)</span>
+                        </label>
+                        <input type="file" id="evidence" multiple style="display: none;">
+                        <div class="file-preview" id="filePreview"></div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="consent" required>
+                        I certify that the information provided is accurate and consent to Barangay Longos processing this complaint
+                    </label>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="reset" class="btn btn-reset">
+                        <i class="fas fa-redo"></i>
+                        Reset Form
+                    </button>
+                    <button type="submit" class="btn btn-submit">
+                        <i class="fas fa-paper-plane"></i>
+                        Submit Complaint
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- Confirmation Modal -->
+    <div class="modal" id="confirmationModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2 class="modal-title">Complaint Submitted Successfully!</h2>
+            <p class="modal-text">Thank you for helping improve our community. Your complaint has been received and will be processed shortly.</p>
+            
+            <div class="complaint-details" id="complaintDetails">
+                <p><strong>Reference Number:</strong> <span id="refNumber"></span></p>
+                <p><strong>Type:</strong> <span id="complaintTypeDisplay"></span></p>
+                <p><strong>Urgency:</strong> <span id="urgencyDisplay"></span></p>
+                <p><strong>Submitted:</strong> <span id="submissionDate"></span></p>
+                <p><strong>Status:</strong> <span class="status-badge">Pending Review</span></p>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; justify-content: center;">
+                <a href="#" class="btn" id="printComplaint">
+                    <i class="fas fa-print"></i>
+                    Print Copy
+                </a>
+                <a href="Brgy.html" class="btn btn-purple">
+                    <i class="fas fa-home"></i>
+                    Return to Homepage
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer - Matching Brgy.html exactly -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="Brgy.html"><i class="fas fa-chevron-right"></i> Home</a></li>
+                    <li><a href="Brgy.html#about"><i class="fas fa-chevron-right"></i> About</a></li>
+                    <li><a href="Brgy.html#services"><i class="fas fa-chevron-right"></i> Services</a></li>
+                    <li><a href="Brgy.html#announcements"><i class="fas fa-chevron-right"></i> Announcements</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Information</h3>
+                <ul>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Barangay Hall, Longos</a></li>
+                    <li><a href="tel:+6321234567"><i class="fas fa-phone"></i> (02) 123-4567</a></li>
+                    <li><a href="tel:+639171234567"><i class="fas fa-mobile-alt"></i> 0917-123-4567</a></li>
+                    <li><a href="mailto:info@longosmalabon.gov.ph"><i class="fas fa-envelope"></i> info@longosmalabon.gov.ph</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Office Hours</h3>
+                <ul>
+                    <li><i class="far fa-clock"></i> Monday-Friday: 8AM-5PM</li>
+                    <li><i class="far fa-clock"></i> Saturday: 8AM-12PM</li>
+                    <li><i class="fas fa-ban"></i> Sunday: Closed</li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; <span id="currentYear"></span> Barangay Longos, City of Malabon. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button - Matching Brgy.html -->
+    <button class="back-to-top" title="Go to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script>
+        // Dark Mode Toggle - Matching Brgy.html
+        const themeToggle = document.querySelector('.theme-toggle');
+        const body = document.body;
+        
+        // Check for saved theme preference
+        const currentTheme = localStorage.getItem('theme');
+        if (currentTheme) {
+            body.classList.add(currentTheme);
+            updateThemeIcon();
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const theme = body.classList.contains('dark-mode') ? 'dark-mode' : '';
+            localStorage.setItem('theme', theme);
+            updateThemeIcon();
+        });
+        
+        function updateThemeIcon() {
+            if (body.classList.contains('dark-mode')) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            } else {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        }
+
+        // Sticky header effect - Matching Brgy.html
+        const header = document.querySelector('header');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Back to top button - Matching Brgy.html
+        const backToTopButton = document.querySelector('.back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopButton.classList.add('visible');
+            } else {
+                backToTopButton.classList.remove('visible');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // File Upload with Preview
+        const fileInput = document.getElementById('evidence');
+        const filePreview = document.getElementById('filePreview');
+        
+        fileInput.addEventListener('change', () => {
+            filePreview.innerHTML = '';
+            
+            if (fileInput.files.length > 0) {
+                Array.from(fileInput.files).forEach((file, index) => {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-preview-item';
+                    fileItem.innerHTML = `
+                        <i class="fas fa-file"></i>
+                        ${file.name.length > 20 ? file.name.substring(0, 20) + '...' : file.name}
+                        <span class="remove-file" data-index="${index}">&times;</span>
+                    `;
+                    filePreview.appendChild(fileItem);
+                });
+            }
+        });
+        
+        // Remove file from preview
+        filePreview.addEventListener('click', (e) => {
+            if (e.target.classList.contains('remove-file')) {
+                const index = e.target.getAttribute('data-index');
+                const files = Array.from(fileInput.files);
+                files.splice(index, 1);
+                
+                // Create new DataTransfer object and set files
+                const dataTransfer = new DataTransfer();
+                files.forEach(file => dataTransfer.items.add(file));
+                fileInput.files = dataTransfer.files;
+                
+                // Trigger change event to update preview
+                fileInput.dispatchEvent(new Event('change'));
+            }
+        });
+
+        // Anonymous Toggle Functionality
+        const anonymousToggle = document.getElementById('anonymousToggle');
+        const personalInfoSection = document.getElementById('personalInfoSection');
+        const contactInfoSection = document.getElementById('contactInfoSection');
+        
+        anonymousToggle.addEventListener('change', function() {
+            if (this.checked) {
+                personalInfoSection.style.opacity = '0.5';
+                personalInfoSection.style.pointerEvents = 'none';
+                contactInfoSection.style.opacity = '0.5';
+                contactInfoSection.style.pointerEvents = 'none';
+                
+                // Remove required attribute when anonymous
+                document.getElementById('firstName').removeAttribute('required');
+                document.getElementById('lastName').removeAttribute('required');
+                document.getElementById('phone').removeAttribute('required');
+            } else {
+                personalInfoSection.style.opacity = '1';
+                personalInfoSection.style.pointerEvents = 'auto';
+                contactInfoSection.style.opacity = '1';
+                contactInfoSection.style.pointerEvents = 'auto';
+                
+                // Add required attribute back when not anonymous
+                document.getElementById('firstName').setAttribute('required', '');
+                document.getElementById('lastName').setAttribute('required', '');
+                document.getElementById('phone').setAttribute('required', '');
+            }
+        });
+
+        // Form Submission
+        const complaintForm = document.querySelector('form');
+        const confirmationModal = document.getElementById('confirmationModal');
+        
+        complaintForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Validate consent checkbox
+            if (!document.getElementById('consent').checked) {
+                alert('Please certify that the information provided is accurate');
+                return;
+            }
+            
+            // Generate complaint reference number
+            const now = new Date();
+            const refNumber = `BL-${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${Math.floor(1000 + Math.random() * 9000)}`;
+            
+            // Display confirmation modal with details
+            document.getElementById('refNumber').textContent = refNumber;
+            document.getElementById('complaintTypeDisplay').textContent = document.getElementById('complaintType').options[document.getElementById('complaintType').selectedIndex].text;
+            document.getElementById('urgencyDisplay').textContent = document.getElementById('urgency').options[document.getElementById('urgency').selectedIndex].text;
+            document.getElementById('submissionDate').textContent = now.toLocaleString('en-PH', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+            
+            confirmationModal.style.display = 'flex';
+            
+            // Reset form after submission
+            complaintForm.reset();
+            filePreview.innerHTML = '';
+            
+            // Reset anonymous toggle
+            anonymousToggle.checked = false;
+            personalInfoSection.style.opacity = '1';
+            personalInfoSection.style.pointerEvents = 'auto';
+            contactInfoSection.style.opacity = '1';
+            contactInfoSection.style.pointerEvents = 'auto';
+        });
+        
+        // Print Complaint
+        document.getElementById('printComplaint').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.print();
+        });
+        
+        // Close modal when clicking outside
+        confirmationModal.addEventListener('click', (e) => {
+            if (e.target === confirmationModal) {
+                confirmationModal.style.display = 'none';
+            }
+        });
+
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Add ripple effect to buttons - Matching Brgy.html
+        function createRipple(event) {
+            const button = event.currentTarget;
+            const circle = document.createElement('span');
+            const diameter = Math.max(button.clientWidth, button.clientHeight);
+            const radius = diameter / 2;
+            
+            circle.style.width = circle.style.height = `${diameter}px`;
+            circle.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
+            circle.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`;
+            circle.classList.add('ripple');
+            
+            const ripple = button.getElementsByClassName('ripple')[0];
+            if (ripple) {
+                ripple.remove();
+            }
+            
+            button.appendChild(circle);
+        }
+
+        const buttons = document.querySelectorAll('.btn');
+        buttons.forEach(button => {
+            button.addEventListener('click', createRipple);
+        });
+
+        // Add ripple effect styles - Matching Brgy.html
+        document.head.insertAdjacentHTML('beforeend', `
+            <style>
+                .ripple {
+                    position: absolute;
+                    border-radius: 50%;
+                    background-color: rgba(255, 255, 255, 0.7);
+                    transform: scale(0);
+                    animation: ripple 600ms linear;
+                    pointer-events: none;
+                }
+                
+                @keyframes ripple {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+            </style>
+        `);
+
+        // Phone number validation
+        const phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', function() {
+            this.value = this.value.replace(/[^0-9+]/g, '');
+        });
+
+        // Smooth scroll for anchor links - Matching Brgy.html
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
