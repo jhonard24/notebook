@@ -171,7 +171,7 @@
         /* Hero Section */
         .hero {
             background: linear-gradient(rgba(106, 13, 173, 0.3), rgba(106, 13, 173, 0.4)), 
-                        url('Longos2.jpg');
+                        url('Longos2.png');
             background-size: cover;
             background-position: center;
             min-height: 70vh;
@@ -872,29 +872,29 @@
 
         <div class="section-divider"></div>
 
-        <!-- Services Section -->
+      
         <section id="services" class="section">
             <div class="section-title" data-scroll="fade-up">
                 <h2>Our Services</h2>
             </div>
             <div class="services-grid">
-                <div class="service-card" data-scroll="fade-up">
-                    <img src="1.jpeg" alt="Request Document">
-                    <div class="service-content">
-                        <h3>Request Document</h3>
-                        <p>Choose the document you need, answer the form, submit, and claim</p>
-                        <a href="#" class="btn">
-                            <i class="fas fa-arrow-right"></i>
-                            Access Service
-                        </a>
-                    </div>
-                </div>
+						   <div class="service-card" data-scroll="fade-up">
+				<img src="1.jpeg" alt="Request Document">
+				<div class="service-content">
+					<h3>Request Document</h3>
+					<p>Choose the document you need, answer the form, submit, and claim</p>
+					<a href="request-service.html" class="btn"> <!-- Update this line -->
+						<i class="fas fa-arrow-right"></i>
+						Access Service
+					</a>
+				</div>
+			</div>
                 <div class="service-card" data-scroll="fade-up" data-scroll-delay="100">
                     <img src="2.jpg" alt="File Complaint">
                     <div class="service-content">
                         <h3>File a Complaint</h3>
                         <p>Report complaint for the improvement of our community</p>
-                        <a href="#" class="btn">
+                        <a href="complaint.html" class="btn">
                             <i class="fas fa-arrow-right"></i>
                             Access Service
                         </a>
@@ -905,7 +905,7 @@
                     <div class="service-content">
                         <h3>Other Services</h3>
                         <p>Submit suggestions, feedback, or donations</p>
-                        <a href="#" class="btn">
+                        <a href="Other.html" class="btn">
                             <i class="fas fa-arrow-right"></i>
                             Access Service
                         </a>
@@ -916,7 +916,7 @@
 
         <div class="section-divider"></div>
 
-        <!-- Announcements Section -->
+      
         <section id="announcements" class="section">
             <div class="section-title" data-scroll="fade-up">
                 <h2>Announcements & Updates</h2>
@@ -990,7 +990,7 @@
 
         <div class="section-divider"></div>
 
-        <!-- Contact Section -->
+       
         <section id="contact" class="section">
             <div class="section-title" data-scroll="fade-up">
                 <h2>Contact Us</h2>
@@ -1022,7 +1022,7 @@
         </section>
     </main>
 
-    <!-- Footer -->
+   
     <footer>
         <div class="footer-container">
             <div class="footer-column" data-scroll="fade-up">
@@ -1058,7 +1058,7 @@
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
+   
     <button class="back-to-top" title="Go to top">
 	        <i class="fas fa-arrow-up"></i>
     </button>
@@ -1255,7 +1255,7 @@
             });
         });
 
-        // Smooth scroll for navigation links
+        // Smooth scroll 
         document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -1273,7 +1273,7 @@
             });
         });
 
-        // Add ripple effect to buttons
+        // Add ripple to buttons
         function createRipple(event) {
             const button = event.currentTarget;
             const circle = document.createElement('span');
@@ -1298,7 +1298,7 @@
             button.addEventListener('click', createRipple);
         });
 
-        // Add ripple effect styles
+        // Add ripple 
         document.head.insertAdjacentHTML('beforeend', `
             <style>
                 .ripple {
