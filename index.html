@@ -294,50 +294,36 @@
         }
 
         // Form submission handler
-        const signupForm = document.querySelector('.signup-form form');
+        const loginForm = document.getElementById('loginForm');
+        const errorMessage = document.getElementById('errorMessage');
         
-        signupForm.addEventListener('submit', function(e) {
+        loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const firstName = this.querySelector('input[placeholder="First Name"]').value;
-            const lastName = this.querySelector('input[placeholder="Last Name"]').value;
-            const email = this.querySelector('input[type="email"]').value;
-            const role = this.querySelector('select').value;
-            const password = this.querySelector('input[placeholder="Create Password"]').value;
-            const confirmPassword = this.querySelector('input[placeholder="Confirm Password"]').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
             
-            // Check if passwords match
-            if (password !== confirmPassword) {
-                alert("Passwords don't match!");
-                return;
-            }
-            
-            // Get existing users
+            // Get users from localStorage
             const users = JSON.parse(localStorage.getItem('users'));
             
-            // Check if email already exists
-            if (users.some(user => user.email === email)) {
-                alert("Email already registered!");
-                return;
+            // Check if user exists
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                // Successful login
+                localStorage.setItem('loggedInUser', JSON.stringify(user));
+                window.location.href = 'Brgy.html';
+            } else {
+                // Failed login
+                errorMessage.style.display = 'block';
+                loginForm.classList.add('shake');
+                setTimeout(() => {
+                    loginForm.classList.remove('shake');
+                }, 500);
+                
+                // Clear password field
+                document.getElementById('password').value = '';
             }
-            
-            // Create new user object
-            const newUser = {
-                firstName,
-                lastName,
-                email,
-                role,
-                password, // Note: In a real app, you should NEVER store plain text passwords
-                createdAt: new Date().toISOString()
-            };
-            
-            // Add new user and save
-            users.push(newUser);
-            localStorage.setItem('users', JSON.stringify(users));
-            
-            // Show success message and redirect to login
-            alert("Account created successfully! You can now login.");
-            window.location.href = 'login.html';
         });
     });
     </script>
