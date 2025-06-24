@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barangay Longos - Sign Up</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        body {
+            height: 100vh;
+            display: flex;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .background-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        
+        .background-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+        
+        .background-image.active {
+            opacity: 1;
+        }
+        
+        .background-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(200, 160, 255, 0.4) 0%, rgba(138, 43, 226, 0.3) 100%);
+            z-index: 0;
+        }
+        
+        .container {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 100px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo-section {
+            width: 40%;
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 15px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+        }
+        
+        .greeting {
+            color: white;
+            font-size: 24px;
+            font-weight: 500;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        
+        .description {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .signup-form {
+            width: 450px; /* Increased from 400px */
+            background: rgba(255, 255, 255, 0.92);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(8px);
+        }
+        
+        .signup-form h1 {
+            color: #5a4fcf;
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .name-fields {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .name-fields .input-group {
+            flex: 1;
+            margin-bottom: 20px;
+        }
+        
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1px solid rgba(221, 221, 221, 0.8);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .input-group input:focus, .input-group select:focus {
+            border-color: #8a2be2;
+            box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.1);
+            outline: none;
+        }
+        
+        .signup-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(to right, #8a2be2, #9b59b6);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(138, 43, 226, 0.3);
+        }
+        
+        .signup-btn:hover {
+            background: linear-gradient(to right, #9b59b6, #8a2be2);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(138, 43, 226, 0.4);
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #7f8c8d;
+        }
+        
+        .login-link a {
+            color: #8a2be2;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 0 50px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                justify-content: center;
+                padding: 20px;
+            }
+            
+            .logo-section {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+            
+            .signup-form {
+                width: 90%;
+                margin-bottom: 30px;
+            }
+            
+            .name-fields {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-container">
+        <div class="background-image active" style="background-image: url('Longos.jpg');"></div>
+        <div class="background-image" style="background-image: url('Longos2.jpg');"></div>
+        <div class="background-image" style="background-image: url('Longos3.jpg');"></div>
+        <div class="background-overlay"></div>
+    </div>
+    
+    <div class="container">
+        <div class="logo-section">
+            <img src="Logo.png" alt="Barangay Longos Logo" class="logo">
+            <div class="greeting">Magandang araw, Longosians!</div>
+            <div class="description">Join our community and access exclusive services for Barangay Longos residents.</div>
+        </div>
+        
+        <div class="signup-form">
+            <h1>Create Account</h1>
+            <form>
+                <div class="name-fields">
+                    <div class="input-group">
+                        <input type="text" placeholder="First Name" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="text" placeholder="Last Name" required>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <input type="email" placeholder="Email Address" required>
+                </div>
+                <div class="input-group">
+                    <select required>
+                        <option value="" disabled selected>Select your role</option>
+                        <option value="resident">Resident</option>
+                        <option value="staff">Barangay Staff</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Create Password" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" placeholder="Confirm Password" required>
+                </div>
+                <button type="submit" class="signup-btn">Sign Up</button>
+            </form>
+            <div class="login-link">
+                Already have an account? <a href="login.html">Log in here</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const backgrounds = document.querySelectorAll('.background-image');
+            let current = 0;
+            
+            function changeBackground() {
+                backgrounds[current].classList.remove('active');
+                current = (current + 1) % backgrounds.length;
+                backgrounds[current].classList.add('active');
+            }
+            
+            setInterval(changeBackground, 5000);
+        });
+		
+		document.addEventListener('DOMContentLoaded', function() {
+        // Background slideshow
+        const backgrounds = document.querySelectorAll('.background-image');
+        let current = 0;
+        
+        function changeBackground() {
+            backgrounds[current].classList.remove('active');
+            current = (current + 1) % backgrounds.length;
+            backgrounds[current].classList.add('active');
+        }
+        
+        setInterval(changeBackground, 5000);
+
+        // Initialize users in localStorage if not exists
+        if (!localStorage.getItem('users')) {
+            localStorage.setItem('users', JSON.stringify([]));
+        }
+
+        // Form submission handler
+        const signupForm = document.querySelector('.signup-form form');
+        
+        signupForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const firstName = this.querySelector('input[placeholder="First Name"]').value;
+            const lastName = this.querySelector('input[placeholder="Last Name"]').value;
+            const email = this.querySelector('input[type="email"]').value;
+            const role = this.querySelector('select').value;
+            const password = this.querySelector('input[placeholder="Create Password"]').value;
+            const confirmPassword = this.querySelector('input[placeholder="Confirm Password"]').value;
+            
+            // Check if passwords match
+            if (password !== confirmPassword) {
+                alert("Passwords don't match!");
+                return;
+            }
+            
+            // Get existing users
+            const users = JSON.parse(localStorage.getItem('users'));
+            
+            // Check if email already exists
+            if (users.some(user => user.email === email)) {
+                alert("Email already registered!");
+                return;
+            }
+            
+            // Create new user object
+            const newUser = {
+                firstName,
+                lastName,
+                email,
+                role,
+                password, // Note: In a real app, you should NEVER store plain text passwords
+                createdAt: new Date().toISOString()
+            };
+            
+            // Add new user and save
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            // Show success message and redirect to login
+            alert("Account created successfully! You can now login.");
+            window.location.href = 'login.html';
+        });
+    });
+    </script>
+</body>
+</html>
